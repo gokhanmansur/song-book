@@ -1,0 +1,16 @@
+version: '2'
+services:
+  songbook-mongodb:
+    image: mongo:4.2.3
+    ports:
+      - '27017:27017'
+    command: mongos --configdb songbook-mongodb-config
+  songbook-mongodb-node:
+    build:
+      context: .
+      dockerfile: mongodb/MongoDB.Dockerfile
+    command: mongod --replSet rs1 --noprealloc --smallfiles
+  songbook-mongodb-config:
+    image: mongo:4.2.3
+    container_name: songbook-mongodb-config
+    command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db
