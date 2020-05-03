@@ -1,0 +1,28 @@
+entity SongBook {
+	id Integer required,
+	name String required
+}
+
+entity Song {
+	id Integer required,
+	name String required,
+    lyrics String
+}
+
+enum Language {
+    ENGLISH, TURKISH
+}
+
+relationship OneToMany {
+	SongBook{song} to Song
+}
+paginate Song with pagination
+
+entity User {
+	id Integer required,
+    name String required
+}
+
+relationship OneToMany {
+	User{songBook} to SongBook
+}
